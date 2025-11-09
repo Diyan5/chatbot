@@ -1,0 +1,260 @@
+{
+  "meta": {
+    "name": "Custom Flow"
+  },
+  "startBlockId": "greeting",
+  "blocks": [
+    {
+      "id": "greeting",
+      "type": "WRITE_MESSAGE",
+      "message": "Hello! What are you looking for today? (weather, time, price, hours, contact, features, returns, delivery)",
+      "next": "wait_main"
+    },
+    {
+      "id": "wait_main",
+      "type": "DETECT_RESPONSE_INTENT",
+      "intents": [
+        { "name": "weather",  "keywords": ["weather","forecast","how is the weather","what is the weather"], "next": "weather" },
+        { "name": "time",     "keywords": ["time","what time is it","current time","hour"], "next": "time" },
+        { "name": "price",    "keywords": ["price","cost","how much","amount"], "next": "price_question" },
+        { "name": "hours",    "keywords": ["hours","working hours","opening hours","working time"], "next": "hours" },
+        { "name": "contact",  "keywords": ["contact","email","phone","support","telephone"], "next": "contact" },
+        { "name": "features", "keywords": ["features","what does it do","functions","capabilities"], "next": "features" },
+        { "name": "returns",  "keywords": ["return","refund","return policy"], "next": "returns" },
+        { "name": "delivery", "keywords": ["delivery","ship","shipping","delivery time"], "next": "delivery" }
+      ],
+      "fallback": "fallback_main"
+    },
+    {
+      "id": "weather",
+      "type": "WRITE_MESSAGE",
+      "message": "It is sunny and 17 degrees.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "time",
+      "type": "WRITE_MESSAGE",
+      "message": "The time now is 10:00 PM.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "price_question",
+      "type": "WRITE_MESSAGE",
+      "message": "Which product are you interested in? (Basic, Premium, Deluxe)",
+      "next": "wait_product"
+    },
+    {
+      "id": "wait_product",
+      "type": "DETECT_RESPONSE_INTENT",
+      "intents": [
+        { "name": "basic",   "keywords": ["basic"],   "next": "price_basic" },
+        { "name": "premium", "keywords": ["premium"], "next": "price_premium" },
+        { "name": "deluxe",  "keywords": ["deluxe"],  "next": "price_deluxe" }
+      ],
+      "fallback": "fallback_product"
+    },
+    {
+      "id": "price_basic",
+      "type": "WRITE_MESSAGE",
+      "message": "The price for the Basic plan is 29.99 USD.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "price_premium",
+      "type": "WRITE_MESSAGE",
+      "message": "The price for the Premium plan is 49.99 USD.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "price_deluxe",
+      "type": "WRITE_MESSAGE",
+      "message": "The price for the Deluxe plan is 79.99 USD.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "fallback_product",
+      "type": "WRITE_MESSAGE",
+      "message": "Sorry, I didn't understand. Please choose Basic, Premium, or Deluxe.",
+      "next": "wait_product"
+    },
+    {
+      "id": "hours",
+      "type": "WRITE_MESSAGE",
+      "message": "We are open Monday to Friday from 9 AM to 5 PM.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "contact",
+      "type": "WRITE_MESSAGE",
+      "message": "You can reach us at support@example.com or call 888-123-456.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "features",
+      "type": "WRITE_MESSAGE",
+      "message": "Our product offers advanced AI detection, natural language understanding and high reliability.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "returns",
+      "type": "WRITE_MESSAGE",
+      "message": "You can return the product within 30 days according to our return policy.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "delivery",
+      "type": "WRITE_MESSAGE",
+      "message": "Delivery typically takes between 3 and 5 business days.",
+      "next": "anything_else_question"
+    },
+    {
+      "id": "anything_else_question",
+      "type": "WRITE_MESSAGE",
+      "message": "Do you need anything else?",
+      "next": "wait_anything"
+    },
+    {
+      "id": "wait_anything",
+      "type": "DETECT_RESPONSE_INTENT",
+      "intents": [
+        { "name": "yes",  "keywords": ["yes","y","yeah","sure","ok","okay"], "next": "yes_message" },
+        { "name": "no",   "keywords": ["no","n","nope","nah"], "next": "no_message" }
+      ],
+      "fallback": "fallback_any"
+    },
+    {
+      "id": "yes_message",
+      "type": "WRITE_MESSAGE",
+      "message": "Ok, now let me know what else you need.",
+      "next": "wait_main"
+    },
+    {
+      "id": "no_message",
+      "type": "WRITE_MESSAGE",
+      "message": "Thanks, bye!",
+      "next": "wait_exit"
+    },
+    {
+      "id": "wait_exit",
+      "type": "DETECT_RESPONSE_INTENT",
+      "intents": [
+        { "name": "exit",    "keywords": ["bye","goodbye","thanks","thank you"], "next": "bye_block" },
+        { "name": "weather", "keywords": ["weather","forecast","how is the weather","what is the weather"], "next": "weather_exit" },
+        { "name": "time",    "keywords": ["time","what time is it","current time","hour"], "next": "time_exit" },
+        { "name": "price",   "keywords": ["price","cost","how much","amount"], "next": "price_exit_question" },
+        { "name": "hours",   "keywords": ["hours","working hours","opening hours","working time"], "next": "hours_exit" },
+        { "name": "contact", "keywords": ["contact","email","phone","support","telephone"], "next": "contact_exit" },
+        { "name": "features","keywords": ["features","what does it do","functions","capabilities"], "next": "features_exit" },
+        { "name": "returns", "keywords": ["return","refund","return policy"], "next": "returns_exit" },
+        { "name": "delivery","keywords": ["delivery","ship","shipping","delivery time"], "next": "delivery_exit" }
+      ],
+      "fallback": "fallback_exit"
+    },
+    {
+      "id": "weather_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "It is sunny and 17 degrees.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "time_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "The time now is 10:00 PM.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "price_exit_question",
+      "type": "WRITE_MESSAGE",
+      "message": "Which product are you interested in? (Basic, Premium, Deluxe)",
+      "next": "wait_product_exit"
+    },
+    {
+      "id": "wait_product_exit",
+      "type": "DETECT_RESPONSE_INTENT",
+      "intents": [
+        { "name": "basic",   "keywords": ["basic"],   "next": "price_basic_exit" },
+        { "name": "premium", "keywords": ["premium"], "next": "price_premium_exit" },
+        { "name": "deluxe",  "keywords": ["deluxe"],  "next": "price_deluxe_exit" }
+      ],
+      "fallback": "fallback_product_exit"
+    },
+    {
+      "id": "price_basic_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "The price for the Basic plan is 29.99 USD.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "price_premium_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "The price for the Premium plan is 49.99 USD.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "price_deluxe_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "The price for the Deluxe plan is 79.99 USD.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "fallback_product_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "Sorry, I didn't understand. Please choose Basic, Premium, or Deluxe.",
+      "next": "wait_product_exit"
+    },
+    {
+      "id": "hours_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "We are open Monday to Friday from 9 AM to 5 PM.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "contact_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "You can reach us at support@example.com or call 888-123-456.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "features_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "Our product offers advanced AI detection, natural language understanding and high reliability.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "returns_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "You can return the product within 30 days according to our return policy.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "delivery_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "Delivery typically takes between 3 and 5 business days.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "bye_block",
+      "type": "WRITE_MESSAGE",
+      "message": "Goodbye! It was nice chatting with you.",
+      "next": "wait_exit"
+    },
+    {
+      "id": "fallback_main",
+      "type": "WRITE_MESSAGE",
+      "message": "Sorry, I didn't understand. Please ask about weather, time, price, hours, contact, features, returns, or delivery.",
+      "next": "wait_main"
+    },
+    {
+      "id": "fallback_any",
+      "type": "WRITE_MESSAGE",
+      "message": "Sorry, I didn't understand. Please answer 'Yes' or 'No'.",
+      "next": "wait_anything"
+    },
+    {
+      "id": "fallback_exit",
+      "type": "WRITE_MESSAGE",
+      "message": "Sorry, I didn't understand. You can say bye or ask about weather, time, price, hours, contact, features, returns, or delivery.",
+      "next": "wait_exit"
+    }
+  ]
+}

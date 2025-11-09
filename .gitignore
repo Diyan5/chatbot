@@ -1,0 +1,19 @@
+# IntelliJ / Eclipse / VSCode
+.idea/
+*.iml
+*.log
+
+# Maven build
+/target/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Docker volumes / environment
+*.env
+/chatbot_db_data
+
+# Node / web cache (ако имаш frontend)
+node_modules/
+dist/
